@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/baihakhi/simple-shop/internal/models"
 	"github.com/baihakhi/simple-shop/internal/repositories"
 )
 
@@ -14,4 +15,8 @@ func InitService(repo repositories.Repositories) Services {
 	}
 }
 
-type Services interface{}
+type Services interface {
+	// User Services
+	CreateUser(data *models.User) (string, error)
+	Login(data *models.User) (string, error)
+}

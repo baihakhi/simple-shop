@@ -1,8 +1,3 @@
-/*
-* Package driver notes
-* Serve only configuration to database using postgres
- */
-
 package driver
 
 import (
