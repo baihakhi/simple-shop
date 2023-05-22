@@ -15,9 +15,9 @@ import (
 func CreateToken(user models.User) (string, error) {
 	claims := jwt.MapClaims{}
 
-	claims["account_id"] = user.Username
-	claims["username"] = user.Fullname
-	claims["account_group"] = user.Role
+	claims["username"] = user.Username
+	claims["full_name"] = user.Fullname
+	claims["role"] = user.Role
 
 	if claims["account_group"] == models.RoleAdmin {
 		claims["exp"] = time.Now().Add(time.Hour * 24 * 30 * 12).Unix()
@@ -43,6 +43,7 @@ func TokenValid(r *http.Request) (*models.User, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		user, err = CreateUserFromMap(claims)
+		fmt.Println(err)
 		if err != nil {
 			return nil, err
 		}
@@ -66,6 +67,7 @@ func ExtractToken(r *http.Request) string {
 
 // CreateFromMap function for convert map to user struct
 func CreateUserFromMap(m map[string]interface{}) (*models.User, error) {
+	fmt.Println(m)
 	data, _ := json.Marshal(m)
 	var result = new(models.User)
 	err := json.Unmarshal(data, &result)

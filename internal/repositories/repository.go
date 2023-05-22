@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/baihakhi/simple-shop/internal/models"
+	"github.com/baihakhi/simple-shop/internal/models/payload/request"
 )
 
 type repository struct {
@@ -21,4 +22,7 @@ type Repositories interface {
 	CreateUser(data *models.User) (string, error)
 	GetPasswordByUsername(username string) (string, error)
 	GetOneUsersByUsername(username string) (*models.User, error)
+
+	// Product Repository
+	GetListProducts(params *request.PaginationRequest) ([]*models.Products, error)
 }
