@@ -57,7 +57,7 @@ func (h *Handler) Login(c echo.Context) error {
 		})
 	}
 
-	return c.JSON(http.StatusCreated, response.MapResponse{
+	return c.JSON(http.StatusOK, response.MapResponse{
 		Message: response.SUCCESS,
 		Data: map[string]string{
 			"token": result,

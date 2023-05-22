@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/baihakhi/simple-shop/internal/handler"
+	"github.com/baihakhi/simple-shop/internal/middleware"
+	"github.com/baihakhi/simple-shop/internal/models"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,8 +18,13 @@ func InitRouter(server *echo.Echo, handler *handler.Handler) {
 	{
 		user := v1.Group("/user")
 		{
-			user.POST("", handler.CreateUser)
+			user.POST("/register", handler.CreateUser)
 			user.POST("/login", handler.Login)
+		}
+
+		product := v1.Group("/product")
+		{
+			product.GET("", handler.GetListProducts, middleware.SetMiddlewareAuthentication([]string{models.RoleAdmin, models.RoleCustomer}))
 		}
 	}
 }

@@ -9,7 +9,7 @@ type (
 	User struct {
 		ID       uint64 `json:"user_id"`
 		Username string `form:"username"`
-		Fullname string `json:"fullname"`
+		Fullname string `json:"full_name"`
 		Address  string `json:"address"`
 		Role     string `json:"role"`
 		Password string `json:"password,omitempty"`

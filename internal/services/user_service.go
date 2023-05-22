@@ -1,6 +1,8 @@
 package services
 
 import (
+	"strings"
+
 	"github.com/baihakhi/simple-shop/internal/middleware"
 	"github.com/baihakhi/simple-shop/internal/models"
 	hash "github.com/baihakhi/simple-shop/internal/utils/bcrypt"
@@ -12,12 +14,12 @@ func (s *service) CreateUser(data *models.User) (string, error) {
 		return "", err
 	}
 	data.Password = hashedPass
-	data.Role = models.RoleCustomer
+	data.Role = strings.ToUpper(models.RoleCustomer)
 	return s.repositories.CreateUser(data)
 }
 
 func (s *service) Login(data *models.User) (string, error) {
-	pass, err := s.repositories.GetPasswordByUsername(data.Username)
+	pass, err := s.repositories.GetPasswordByUsername(strings.ToLower(data.Username))
 	if err != nil {
 		return "", err
 	}
@@ -26,7 +28,7 @@ func (s *service) Login(data *models.User) (string, error) {
 		return "", err
 	}
 
-	acc, err := s.repositories.GetOneUsersByUsername(data.Username)
+	acc, err := s.repositories.GetOneUsersByUsername(strings.ToLower(data.Username))
 	if err != nil {
 		return "", err
 	}

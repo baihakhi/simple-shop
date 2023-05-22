@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/baihakhi/simple-shop/internal/models"
@@ -20,6 +21,8 @@ func SetMiddlewareAuthentication(access []string) echo.MiddlewareFunc {
 				})
 				return err
 			}
+
+			fmt.Println(user)
 
 			isAllowed := utils.IsContain(user.Role, access)
 			if !isAllowed {

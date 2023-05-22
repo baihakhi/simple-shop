@@ -1,5 +1,7 @@
 package request
 
+import "github.com/labstack/echo/v4"
+
 type (
 	PaginationRequest struct {
 		Page  int64  `json:"page" query:"page"`
@@ -15,4 +17,17 @@ func (p *PaginationRequest) ValidatePagination() {
 	if p.Limit < 1 {
 		p.Limit = 10
 	}
+}
+
+func (u *PaginationRequest) GetDataFromHTTPRequest(c echo.Context) error {
+	if err := c.Bind(u); err != nil {
+		return err
+	}
+
+	binder := &echo.DefaultBinder{}
+	binder.BindHeaders(c, u)
+
+	u.ValidatePagination()
+
+	return nil
 }
