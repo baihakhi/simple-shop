@@ -2,6 +2,8 @@ package repositories
 
 import (
 	"database/sql"
+
+	"github.com/baihakhi/simple-shop/internal/models"
 )
 
 type repository struct {
@@ -14,4 +16,9 @@ func InitRepository(db *sql.DB) Repositories {
 	}
 }
 
-type Repositories interface{}
+type Repositories interface {
+	// User repository
+	CreateUser(data *models.User) (string, error)
+	GetPasswordByUsername(username string) (string, error)
+	GetOneUsersByUsername(username string) (*models.User, error)
+}
