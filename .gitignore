@@ -10,3 +10,6 @@ config/.env
 
 # temporary file and logs
 tmp/
+
+# air config
+.air.toml

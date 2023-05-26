@@ -42,9 +42,6 @@ func (u *User) GetDataFromHTTPRequest(c echo.Context) error {
 		return err
 	}
 
-	binder := &echo.DefaultBinder{}
-	binder.BindHeaders(c, u)
-
 	return nil
 }
 

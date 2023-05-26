@@ -43,7 +43,6 @@ func TokenValid(r *http.Request) (*models.User, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		user, err = CreateUserFromMap(claims)
-		fmt.Println(err)
 		if err != nil {
 			return nil, err
 		}
@@ -67,7 +66,6 @@ func ExtractToken(r *http.Request) string {
 
 // CreateFromMap function for convert map to user struct
 func CreateUserFromMap(m map[string]interface{}) (*models.User, error) {
-	fmt.Println(m)
 	data, _ := json.Marshal(m)
 	var result = new(models.User)
 	err := json.Unmarshal(data, &result)
