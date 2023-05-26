@@ -25,4 +25,11 @@ type Repositories interface {
 
 	// Product Repository
 	GetListProducts(params *request.PaginationRequest) ([]*models.Products, error)
+	GetOneProductByID(productID uint64) (result *models.Products, err error)
+
+	// Cart Repository
+	CreateCart(data *models.Cart) (int64, error)
+	GetListCart(params *request.PaginationRequest, userID uint64) (result []*models.Cart, err error)
+	GetOneCartsById(cartID uint64) (*models.Cart, error)
+	DeleteCart(cartID uint64) error
 }

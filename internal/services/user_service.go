@@ -35,3 +35,7 @@ func (s *service) Login(data *models.User) (string, error) {
 
 	return middleware.CreateToken(*acc)
 }
+
+func (s *service) GetOneUsersByUsername(username string) (*models.User, error) {
+	return s.repositories.GetOneUsersByUsername(username)
+}

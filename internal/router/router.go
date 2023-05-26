@@ -26,5 +26,12 @@ func InitRouter(server *echo.Echo, handler *handler.Handler) {
 		{
 			product.GET("", handler.GetListProducts, middleware.SetMiddlewareAuthentication([]string{models.RoleAdmin, models.RoleCustomer}))
 		}
+
+		cart := v1.Group("/cart")
+		{
+			cart.POST("", handler.AddToCart, middleware.SetMiddlewareAuthentication([]string{models.RoleCustomer}))
+			cart.GET("", handler.GetListCart, middleware.SetMiddlewareAuthentication([]string{models.RoleCustomer, models.RoleAdmin}))
+			cart.DELETE("/:cart_id", handler.DeleteCart, middleware.SetMiddlewareAuthentication([]string{models.RoleCustomer}))
+		}
 	}
 }

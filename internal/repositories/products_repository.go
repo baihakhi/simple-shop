@@ -38,3 +38,23 @@ func (r *repository) GetListProducts(params *request.PaginationRequest) (result 
 
 	return result, nil
 }
+
+func (r *repository) GetOneProductByID(productID uint64) (*models.Products, error) {
+	var result models.Products
+	if err := r.db.QueryRow(queries.GetOneProductByID, productID).Scan(
+		&result.ID,
+		&result.Code,
+		&result.Title,
+		&result.Price,
+		&result.Weight,
+		&result.Stock,
+		&result.Address,
+		&result.Category,
+		&result.CreatedAt,
+		&result.UpdatedAt,
+	); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
